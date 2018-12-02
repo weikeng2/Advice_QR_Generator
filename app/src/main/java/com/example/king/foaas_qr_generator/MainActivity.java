@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
         // Load the main layout for our activity
         setContentView(R.layout.activity_main);
 
-        // Attach the handler to our UI button
-        final Button startAPICall = findViewById(R.id.startQRCall);
-        startAPICall.setOnClickListener(new View.OnClickListener()
-        {
+        // The QR Image
+        final ImageView QrView = findViewById(R.id.QrDisplay);
+
+        // The QR Button
+        final Button startQRCall = findViewById(R.id.startQRCall);
+        startQRCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v)
             {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(final JSONObject response) {
                             Log.d(TAG, response.toString());
+
                         }
                     }, new Response.ErrorListener() {
                 @Override
