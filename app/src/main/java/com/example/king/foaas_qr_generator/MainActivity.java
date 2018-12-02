@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.json.JSONObject;
 
@@ -37,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Load the main layout for our activity
         setContentView(R.layout.activity_main);
 
-        // The QR Image
-        final ImageView QrView = findViewById(R.id.QrDisplay);
+        // The QR Image is made when requesting the QR below.
 
         // The QR Button
         final Button startQRCall = findViewById(R.id.startQRCall);
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
+                            final ImageView QrView = findViewById(R.id.QrDisplay);
+
                             Log.d(TAG, response.toString());
 
                         }
@@ -76,4 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    static public DisplayImageOptions options= new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).build();
 }
