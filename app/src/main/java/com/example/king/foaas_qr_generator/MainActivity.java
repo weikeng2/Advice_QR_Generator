@@ -21,11 +21,14 @@ import org.json.JSONObject;
  * main Screen for app.
  */
 public class MainActivity extends AppCompatActivity {
+    /** Default logging tag for messages from the main activity. */
     private static final String TAG = "FOAAS_QR_Generator:Main";
+    /** Request queue for our network requests. */
     private static RequestQueue requestQueue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -35,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attach the handler to our UI button
-        final Button startAPICall = findViewById(R.id.startAPICall);
-        startAPICall.setOnClickListener(new View.OnClickListener() {
+        final Button startAPICall = findViewById(R.id.startQRCall);
+        startAPICall.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(final View v) {
-                Log.d(TAG, "Start API button clicked");
+            public void onClick(final View v)
+            {
+                Log.d(TAG, "Start QR button clicked");
                 startAPICall();
             }
         });
@@ -55,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(final JSONObject response) {
                             Log.d(TAG, response.toString());
-                            ImageView qrCode = findViewById(R.id.qrCode);
-                            qrCode.setImageResource(R.drawable.);
                         }
                     }, new Response.ErrorListener() {
                 @Override
