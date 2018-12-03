@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     /** URL FUCKER */
     private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
+    /** FUCK U MSG SELECT */
+    private static String msg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -47,12 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
         //the user's name when we need to input that
         EditText user = findViewById(R.id.UserName);
-        String userValue = user.getText().toString();
+        String userName = user.getText().toString();
 
         //the recipients name when we need to input that
         EditText recipient = findViewById(R.id.Recipient);
-        String recipientValue = recipient.getText().toString();
+        String recipientName = recipient.getText().toString();
 
+
+        /** Make the drop down menu for the MESSAGES and input msg selected into string.*/
+        msg = "Fuck%20Off";
+        url += msg;
 
         // The QR Button
         final Button startQRCall = findViewById(R.id.startQRCall);
@@ -65,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**adding to the url has to have \n at the end. */
-        String msg = "Fuck%20Off";
-        url += msg;
+        // Displays the QRCode with the msg selected
         ImageView code = findViewById(R.id.QrDisplay);
         Picasso.with(this).load(url).into(code);
     }
