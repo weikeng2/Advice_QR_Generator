@@ -1,5 +1,6 @@
 package com.example.king.foaas_qr_generator;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -37,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
     /** URL FUCKER */
     private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
-    /** FUCK U MSG SELECT */
-    private static String msg;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,19 +55,23 @@ public class MainActivity extends AppCompatActivity {
         //the recipients name when we need to input that
         final EditText recipient = findViewById(R.id.Recipient);
 
-        //drop Down
+        /* The Spinner */
         Spinner dropDown = findViewById(R.id.DropDown);
         //array to put messages in
         String[] messages = new String[] {"Message", "Hello World", "Ni Hao Shi Jie"};
+        //need adapter to put into dropdown spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, messages);
-        //make dropdown display dropdown stuff
         dropDown.setAdapter(adapter);
+        // the msg that it gets is the default, which is message.
+        String msgg = (String) dropDown.getSelectedItem();
 
-        /** Make the drop down menu for the MESSAGES and input msg selected into string.*/
-        msg = "Fuck%20Off";
+        /* Make the drop down menu for the MESSAGES and input msg selected into string.*/
+        String msg = msgg.replaceAll(" ", "%20");
         url += msg;
 
-        // The QR Button
+
+
+        /* The QR Button */
         final Button startQRCall = findViewById(R.id.startQRCall);
         startQRCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 String recipientName = recipient.getText().toString();
                 Log.d(TAG, "Start QR button clicked");
                 startAPICall();
+
+                // Displays the QRCode with the msg selected
+                ImageView code = findViewById(R.id.QrDisplay);
+                Picasso.with(code.getContext()).load(url).into(code);
             }
         });
 
-        // Displays the QRCode with the msg selected
-        ImageView code = findViewById(R.id.QrDisplay);
-        Picasso.with(this).load(url).into(code);
     }
 
 
