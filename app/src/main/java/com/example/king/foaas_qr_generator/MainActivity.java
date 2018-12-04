@@ -1,12 +1,16 @@
 package com.example.king.foaas_qr_generator;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -46,16 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Load the main layout for our activity
         setContentView(R.layout.activity_main);
-
-
         //the user's name when we need to input that
-        EditText user = findViewById(R.id.UserName);
-        String userName = user.getText().toString();
+        final EditText user = findViewById(R.id.UserName);
 
         //the recipients name when we need to input that
-        EditText recipient = findViewById(R.id.Recipient);
-        String recipientName = recipient.getText().toString();
+        final EditText recipient = findViewById(R.id.Recipient);
 
+        //drop Down
+        Spinner dropDown = findViewById(R.id.DropDown);
+        //array to put messages in
+        String[] messages = new String[] {"Message", "Hello World", "Ni Hao Shi Jie"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, messages);
+        //make dropdown display dropdown stuff
+        dropDown.setAdapter(adapter);
 
         /** Make the drop down menu for the MESSAGES and input msg selected into string.*/
         msg = "Fuck%20Off";
@@ -67,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v)
             {
+
+                String userName = user.getText().toString();
+                String recipientName = recipient.getText().toString();
                 Log.d(TAG, "Start QR button clicked");
                 startAPICall();
             }
@@ -76,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView code = findViewById(R.id.QrDisplay);
         Picasso.with(this).load(url).into(code);
     }
+
+
 
     void startAPICall() {
         try {
