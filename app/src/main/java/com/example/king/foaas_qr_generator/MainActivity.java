@@ -67,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         /* Make the drop down menu for the MESSAGES and input msg selected into string.*/
         String msg = msgg.replaceAll(" ", "%20");
+        msg = msg.replaceAll("fuck", "f%2A%2A%2A");
+        msg = msg.replaceAll("ass", "a%2A%2A");
+        msg = msg.replaceAll("bitch", "b%2A%2A%2A%2A");
+        msg = msg.replaceAll("dick", "d%2A%2A%2A");
+
         url += msg;
 
 
