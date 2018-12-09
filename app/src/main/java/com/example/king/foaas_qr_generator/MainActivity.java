@@ -47,34 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        // Load the main layout for our activity
-        setContentView(R.layout.activity_main);
-        //the user's name when we need to input that
-        final EditText user = findViewById(R.id.UserName);
-
-        //the recipients name when we need to input that
-        final EditText recipient = findViewById(R.id.Recipient);
-
-        /* The Spinner */
-        Spinner dropDown = findViewById(R.id.DropDown);
-        //array to put messages in
-        String[] messages = new String[] {"Message", "Hello World", "Ni Hao Shi Jie"};
-        //need adapter to put into dropdown spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, messages);
-        dropDown.setAdapter(adapter);
-        // the msg that it gets is the default, which is message.
-        String msgg = (String) dropDown.getSelectedItem();
-
-        /* Make the drop down menu for the MESSAGES and input msg selected into string.*/
-        String msg = msgg.replaceAll(" ", "%20");
-        msg = msg.replaceAll("fuck", "f%2A%2A%2A");
-        msg = msg.replaceAll("ass", "a%2A%2A");
-        msg = msg.replaceAll("bitch", "b%2A%2A%2A%2A");
-        msg = msg.replaceAll("dick", "d%2A%2A%2A");
-
-        url += msg;
-
-
 
         /* The QR Button */
         final Button startQRCall = findViewById(R.id.startQRCall);
@@ -82,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v)
             {
-
-                String userName = user.getText().toString();
-                String recipientName = recipient.getText().toString();
                 Log.d(TAG, "Start QR button clicked");
                 startAPICall();
 
