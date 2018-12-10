@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     private static String aurl = "https://api.adviceslip.com/advice";
     private static String advice = "";
+    private String replace = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.d(TAG, "Start QR button clicked");
                 startAdviceAPICall();
-                advice.replaceAll(" ", "%20");
-
-                url += advice;
+                url = replace + advice;
                 startAPICall();
 
                 // Displays the QRCode with the msg selected
@@ -96,13 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
     void startAdviceAPICall() {
         try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET, aurl, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
                             Log.d(TAG, "Advice gotten");
-                            advice = response.toString();
+                            try {
+                                advice = response.getJSONObject("slip").getString("advice");
+                            } catch (JSONException e) {
+                                Log.w(TAG, "Something happened");
+                                Log.w(TAG, e.toString());
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override
