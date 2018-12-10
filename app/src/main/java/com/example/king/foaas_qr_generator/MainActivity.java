@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** URL FUCKER */
     private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+    private static String aurl = "https://api.adviceslip.com/advice";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,6 +72,27 @@ public class MainActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            Log.d(TAG, "QR Code Generated");
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.w(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void startAdviceAPICall() {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET, aurl, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
