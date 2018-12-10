@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private static RequestQueue requestQueue;
 
     /** URL FUCKER */
-    private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
-    private static String aurl = "https://api.adviceslip.com/advice";
-    private static String advice = "";
+    private String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+    private String advice = "";
     private String replace = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
     @Override
@@ -94,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void startAdviceAPICall() {
+        String aurl = "https://api.adviceslip.com/advice";
         try {
             final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET, aurl, null,
