@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     /** URL FUCKER */
     private static String url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     private static String aurl = "https://api.adviceslip.com/advice";
+    private static String advice = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View v)
             {
                 Log.d(TAG, "Start QR button clicked");
+                startAdviceAPICall();
+                advice.replaceAll(" ", "%20");
+
+                url += advice;
                 startAPICall();
 
                 // Displays the QRCode with the msg selected
@@ -96,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            Log.d(TAG, "QR Code Generated");
+                            Log.d(TAG, "Advice gotten");
+                            advice = response.toString();
                         }
                     }, new Response.ErrorListener() {
                 @Override
